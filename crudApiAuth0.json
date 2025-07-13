@@ -1,0 +1,509 @@
+{
+	"info": {
+		"_postman_id": "8d7f17c5-9828-422f-8f93-7dad28f0c19f",
+		"name": "AUTH0_CRUD",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13366720"
+	},
+	"item": [
+		{
+			"name": "springboot",
+			"item": [
+				{
+					"name": "users",
+					"item": [
+						{
+							"name": "getUsers",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url_springBoot}}/api/admin/users",
+									"host": [
+										"{{base_url_springBoot}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getUserByID",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"auth0Id\":\"auth0|6844e74af944d7ada0d72287\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url_springBoot}}/api/admin/users/getUserById",
+									"host": [
+										"{{base_url_springBoot}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"users",
+										"getUserById"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "createUser",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"chirooo@gmail.com\",\n  \"name\": \"chiro\",\n  \"nickName\":\"chiro\",\n  \"password\": \"userPrueba@123\",\n  \"connection\": \"Username-Password-Authentication\",\n  \"roles\":[\"rol_K96JEx5iqNavmbOt\"]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url_springBoot}}/api/admin/users/createUser",
+									"host": [
+										"{{base_url_springBoot}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"users",
+										"createUser"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "addRolesUser",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"auth0|6844e74af944d7ada0d72287\",\n    \"roles\": [\n        \"rol_HvY8YR5MH68rUfpf\"\n    ]\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url_springBoot}}/api/admin/users/addRolesUser",
+									"host": [
+										"{{base_url_springBoot}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"users",
+										"addRolesUser"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "removeRolesUser",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"auth0|6844e74af944d7ada0d72287\",\n    \"roles\": [\n        \"rol_HvY8YR5MH68rUfpf\"\n    ]\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url_springBoot}}/api/admin/users/removeRolesUser",
+									"host": [
+										"{{base_url_springBoot}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"users",
+										"removeRolesUser"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "modifyUser",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": 1,\n    \"email\": \"ramagonzalez@gmail.com\",\n    \"lastName\":\"Gonzalez\",\n    \"name\": \"rama\",\n    \"nickName\": \"rama\",\n    \"password\": \"userPrueba@123\",\n    \"connection\": \"Username-Password-Authentication\",\n    \"auth0Id\":\"auth0|6844e74af944d7ada0d72287\",\n    \"roles\": [\n        \"rol_K96JEx5iqNavmbOt\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url_springBoot}}/api/admin/users/modifyUser",
+									"host": [
+										"{{base_url_springBoot}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"users",
+										"modifyUser"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deleteUSer",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"auth0Id\":\"auth0|6844ecbe4f00501833b9858f\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url_springBoot}}/api/admin/users/deleteUserById",
+									"host": [
+										"{{base_url_springBoot}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"users",
+										"deleteUserById"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete user Fisic",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"auth0Id\":\"auth0|6844ecbe4f00501833b9858f\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url_springBoot}}/api/admin/users/deleteUserByIdFisic",
+									"host": [
+										"{{base_url_springBoot}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"users",
+										"deleteUserByIdFisic"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "roles",
+					"item": [
+						{
+							"name": "getAllRoles",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url_springBoot}}/api/admin/roles",
+									"host": [
+										"{{base_url_springBoot}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"roles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getRoleById",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url_springBoot}}/api/admin/roles/getRoleById?id=rol_5iIL5FImwpAPmyur",
+									"host": [
+										"{{base_url_springBoot}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"roles",
+										"getRoleById"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "rol_5iIL5FImwpAPmyur"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getUserRoles",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\":\"auth0|684218cc90cf0262b82032ac\"\n\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url_springBoot}}/roles/getUserRoles",
+									"host": [
+										"{{base_url_springBoot}}"
+									],
+									"path": [
+										"roles",
+										"getUserRoles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "createRole",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\":\"prueba\",\n    \"description\":\"prueba del local\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url_springBoot}}/api/admin/roles/createRole",
+									"host": [
+										"{{base_url_springBoot}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"roles",
+										"createRole"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Modify Role",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 4,\r\n    \"description\": \"Cocinero del local\",\r\n    \"name\": \"Cocinero\",\r\n    \"auth0RoleId\": \"rol_FT9FrHryoc2MteER\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url_springBoot}}/api/admin/roles/modifyRole",
+									"host": [
+										"{{base_url_springBoot}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"roles",
+										"modifyRole"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deleteRole",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url_springBoot}}/api/admin/roles/deleteRole?id=rol_FT9FrHryoc2MteER",
+									"host": [
+										"{{base_url_springBoot}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"roles",
+										"deleteRole"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "rol_FT9FrHryoc2MteER"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteFisic",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url_springBoot}}/api/admin/roles/deleteRoleFisic?id=rol_FT9FrHryoc2MteER",
+									"host": [
+										"{{base_url_springBoot}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"roles",
+										"deleteRoleFisic"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "rol_FT9FrHryoc2MteER"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getRoleByName",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:4000/api/v1"
+		},
+		{
+			"key": "base_url_springBoot",
+			"value": "http://localhost:8081",
+			"type": "string"
+		}
+	]
+}
