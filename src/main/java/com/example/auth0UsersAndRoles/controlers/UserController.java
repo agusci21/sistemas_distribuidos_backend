@@ -1,6 +1,5 @@
 package com.example.auth0UsersAndRoles.controlers;
 
-
 import com.example.auth0UsersAndRoles.entities.Roles;
 import com.example.auth0UsersAndRoles.entities.User;
 import com.example.auth0UsersAndRoles.entities.dto.AssingRoleDTO;
@@ -8,6 +7,8 @@ import com.example.auth0UsersAndRoles.entities.dto.UserDTO;
 import com.example.auth0UsersAndRoles.repositories.RoleRepository;
 import com.example.auth0UsersAndRoles.services.UserBBDDService;
 import com.example.auth0UsersAndRoles.services.UserAuth0Service;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+@Tag(name = "Users", description = "Operaciones para gestión de usuarios")
 @RestController
 @RequestMapping(path = "/api/admin/users", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserController {
@@ -24,12 +27,14 @@ public class UserController {
     private final UserBBDDService userBBDDService;
     private final RoleRepository roleRepository;
 
-    public UserController(UserAuth0Service userAuth0Service, RoleRepository roleRepository, UserBBDDService userBBDDService) {
+    public UserController(UserAuth0Service userAuth0Service, RoleRepository roleRepository,
+            UserBBDDService userBBDDService) {
         this.userAuth0Service = userAuth0Service;
         this.roleRepository = roleRepository;
         this.userBBDDService = userBBDDService;
     }
 
+    @Operation(summary = "Obtener todos los usuarios", description = "Devuelve la lista de todos los usuarios.")
     @GetMapping
     public ResponseEntity<?> getAllUsers() {
         try {
@@ -40,11 +45,12 @@ public class UserController {
         }
     }
 
+    @Operation(summary = "Obtener usuario por ID", description = "Devuelve un usuario según su Auth0 ID.")
     @PostMapping("/getUserById")
     public ResponseEntity<?> getUserById(@RequestBody UserDTO userDTO) {
         try {
             User user = userBBDDService.findById(userDTO.getAuth0Id());
-            if(user == null) {
+            if (user == null) {
                 return ResponseEntity.ok(false);
             }
             return ResponseEntity.ok(user);
@@ -53,6 +59,7 @@ public class UserController {
         }
     }
 
+    @Operation(summary = "Crear usuario", description = "Crea un nuevo usuario en Auth0 y en la base de datos.")
     @PostMapping("/createUser")
     public ResponseEntity<?> createUser(@RequestBody UserDTO userDTO) {
         try {
@@ -82,7 +89,7 @@ public class UserController {
     public ResponseEntity<?> createUserClient(@RequestBody UserDTO userDTO) {
         try {
             com.auth0.json.mgmt.users.User userAuth0 = userAuth0Service.getUserById(userDTO.getAuth0Id());
-            if(userAuth0 == null) {
+            if (userAuth0 == null) {
                 return ResponseEntity.internalServerError().body("El usuario no existe");
             }
 
@@ -150,7 +157,8 @@ public class UserController {
             userAuth0Service.deleteUser(userDTO.getAuth0Id());
             return ResponseEntity.ok("Usuario eliminado físicamente.");
         } catch (Exception e) {
-            return ResponseEntity.internalServerError().body("Error al eliminar físicamente al usuario: " + e.getMessage());
+            return ResponseEntity.internalServerError()
+                    .body("Error al eliminar físicamente al usuario: " + e.getMessage());
         }
     }
 

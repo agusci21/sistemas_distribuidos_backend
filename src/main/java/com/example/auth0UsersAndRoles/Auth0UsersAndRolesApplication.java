@@ -23,7 +23,7 @@ public class Auth0UsersAndRolesApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Auth0UsersAndRolesApplication.class, args);
-		System.out.println("Funcionando");
+		System.out.println("Api corriendo");
 	}
 
 	/*

@@ -5,11 +5,14 @@ import com.example.auth0UsersAndRoles.entities.Roles;
 import com.example.auth0UsersAndRoles.entities.dto.RoleDTO;
 import com.example.auth0UsersAndRoles.services.RoleAuth0Service;
 import com.example.auth0UsersAndRoles.services.RoleBBDDService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "Roles", description = "Operaciones para gestión de roles")
 @RestController
 @RequestMapping(path = "/api/admin/roles", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RoleController {
@@ -23,16 +26,19 @@ public class RoleController {
         this.roleService = roleService;
     }
 
+    @Operation(summary = "Obtener rol por nombre", description = "Devuelve un rol según su nombre.")
     @GetMapping("/getRoleByName")
     public Roles getRoleByName(@RequestParam String name) throws Exception {
         return roleBBDDServicebbdd.findByName(name);
     }
 
+    @Operation(summary = "Obtener todos los roles", description = "Devuelve la lista de todos los roles.")
     @GetMapping
     public List<Roles> getAllRoles() throws Exception {
         return roleBBDDServicebbdd.findAll();
     }
 
+    @Operation(summary = "Obtener rol por ID", description = "Devuelve un rol según su ID.")
     @GetMapping("/getRoleById")
     public Roles getRoleById(@RequestParam("id") String id) throws Exception {
         return roleBBDDServicebbdd.findById(id);
@@ -76,6 +82,7 @@ public class RoleController {
         }
     }
 
+    @Operation(summary = "Crear rol", description = "Crea un nuevo rol en Auth0 y en la base de datos.")
     @PostMapping("/createRole")
     public Roles createRole(@RequestBody RoleDTO roleDTO) throws Exception {
         Role rolAuth = null;
@@ -104,6 +111,7 @@ public class RoleController {
         }
     }
 
+    @Operation(summary = "Eliminar rol", description = "Elimina un rol de la base de datos por ID.")
     @DeleteMapping("/deleteRole")
     public void deleteRole(@RequestParam("id") String id) throws Exception {
         roleBBDDServicebbdd.delete(id);

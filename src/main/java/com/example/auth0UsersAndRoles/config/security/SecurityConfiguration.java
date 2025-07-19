@@ -42,30 +42,22 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf((csrf) -> csrf.disable())
-                .cors(withDefaults()) //por defecto spring va a buscar un bean con el nombre "corsConfigurationSource".
-                .authorizeHttpRequests(authorizeRequests ->
-                        authorizeRequests
-                                .requestMatchers("/api/public").permitAll()
-                                .requestMatchers("/api/admin/users/getUserById").authenticated()
-                                .requestMatchers("/api/admin/users/createUserClient").authenticated()
-                                .requestMatchers("/api/admin/roles/getRoleByName").authenticated()
-                                .requestMatchers("/api/client/**").hasAnyAuthority("Cliente","Administrador")
-                                .requestMatchers("/api/kitchener/**").hasAnyAuthority("Cocinero","Administrador")
-                                .requestMatchers("/api/admin/**").hasAuthority("Administrador")
-
-                                .anyRequest().authenticated()
-
-
-                                //.anyRequest().permitAll()
-                )
-                .oauth2ResourceServer(oauth2ResourceServer ->
-                        oauth2ResourceServer
-                                .jwt(jwt ->
-                                        jwt
-                                                .decoder(jwtDecoder())
-                                                .jwtAuthenticationConverter(jwtAuthenticationConverter())
-                                )
-                );
+                .cors(withDefaults()) // por defecto spring va a buscar un bean con el nombre
+                                      // "corsConfigurationSource".
+                .authorizeHttpRequests(authorizeRequests -> authorizeRequests
+                        .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/api/public").permitAll()
+                        .requestMatchers("/api/admin/users/getUserById").authenticated()
+                        .requestMatchers("/api/admin/users/createUserClient").authenticated()
+                        .requestMatchers("/api/admin/roles/getRoleByName").authenticated()
+                        .requestMatchers("/api/client/**").hasAnyAuthority("Cliente", "Administrador")
+                        .requestMatchers("/api/kitchener/**").hasAnyAuthority("Cocinero", "Administrador")
+                        .requestMatchers("/api/admin/**").hasAuthority("Administrador")
+                        .anyRequest().authenticated())
+                .oauth2ResourceServer(oauth2ResourceServer -> oauth2ResourceServer
+                        .jwt(jwt -> jwt
+                                .decoder(jwtDecoder())
+                                .jwtAuthenticationConverter(jwtAuthenticationConverter())));
         return http.build();
     }
 
@@ -99,7 +91,7 @@ public class SecurityConfiguration {
     @Bean
     JwtAuthenticationConverter jwtAuthenticationConverter() {
         JwtGrantedAuthoritiesConverter converter = new JwtGrantedAuthoritiesConverter();
-        converter.setAuthoritiesClaimName(audience+"/roles");
+        converter.setAuthoritiesClaimName(audience + "/roles");
         converter.setAuthorityPrefix("");
 
         JwtAuthenticationConverter jwtConverter = new JwtAuthenticationConverter();
