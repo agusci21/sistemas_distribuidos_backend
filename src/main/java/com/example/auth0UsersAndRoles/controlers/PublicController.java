@@ -20,25 +20,4 @@ public class PublicController {
         return ResponseEntity.status(HttpStatus.OK).body(
                 "{ \"message\": \"Este es un endpoint publico, podes ver esta respuesta sin estar autenticado.\"}");
     }
-
-    @Operation(summary = "Endpoint Yedi", description = "Devuelve un mensaje para usuarios Yedi.")
-    @GetMapping(value = "/api/yedi")
-    public ResponseEntity<?> yediEndpoint() {
-        return ResponseEntity.status(HttpStatus.OK).body(
-                "{ \"message\": \"Este es un endpoint de Yedi.\"}");
-    }
-
-    @Operation(summary = "Endpoint Sith", description = "Devuelve un mensaje para usuarios Sith.")
-    @GetMapping(value = "/api/sith")
-    public ResponseEntity<?> sithEndpoint() {
-        return ResponseEntity.status(HttpStatus.OK).body(
-                "{ \"message\": \"Este es un endpoint de Sith.\"}");
-    }
-
-    @Operation(summary = "Endpoint Civilian", description = "Devuelve un mensaje para usuarios Civilian.")
-    @GetMapping(value = "/api/civilian")
-    public ResponseEntity<?> civilianEndpoint() {
-        return ResponseEntity.status(HttpStatus.OK).body(
-                "{ \"message\": \"Este es un endpoint de Civilian.\"}");
-    }
 }
