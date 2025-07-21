@@ -21,13 +21,13 @@ import java.util.stream.Collectors;
 @Tag(name = "Users", description = "Operaciones para gestión de usuarios")
 @RestController
 @RequestMapping(path = "/api/admin/users", produces = MediaType.APPLICATION_JSON_VALUE)
-public class UserController {
+public class AdminUserController {
 
     private final UserAuth0Service userAuth0Service;
     private final UserBBDDService userBBDDService;
     private final RoleRepository roleRepository;
 
-    public UserController(UserAuth0Service userAuth0Service, RoleRepository roleRepository,
+    public AdminUserController(UserAuth0Service userAuth0Service, RoleRepository roleRepository,
             UserBBDDService userBBDDService) {
         this.userAuth0Service = userAuth0Service;
         this.roleRepository = roleRepository;

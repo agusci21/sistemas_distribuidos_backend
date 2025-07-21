@@ -29,4 +29,17 @@ public class PokemonController {
                 .body("Error fetching pokemons: " + e.getMessage());
         }
     }
+
+    @Operation(summary = "Get all pokemons public", description = "Fetches pokemons from PokeAPI")
+    @GetMapping("/public/get-all-pokemons")
+    public ResponseEntity<String> getPokemonsPublic() {
+        String url = "https://pokeapi.co/api/v2/pokemon";
+        try {
+            String response = restTemplate.getForObject(url, String.class);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError()
+                .body("Error fetching pokemons: " + e.getMessage());
+        }
+    }
 }

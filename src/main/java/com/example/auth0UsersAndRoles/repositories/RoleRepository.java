@@ -1,7 +1,6 @@
 package com.example.auth0UsersAndRoles.repositories;
 
 import com.example.auth0UsersAndRoles.entities.Roles;
-import com.example.auth0UsersAndRoles.entities.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;

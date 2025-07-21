@@ -42,16 +42,15 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf((csrf) -> csrf.disable())
-                .cors(withDefaults()) // por defecto spring va a buscar un bean con el nombre
-                                      // "corsConfigurationSource".
+                .cors(withDefaults())
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/api/public").permitAll()
+                        .requestMatchers("/api/public/**").permitAll()
                         .requestMatchers("/api/admin/users/getUserById").authenticated()
                         .requestMatchers("/api/admin/users/createUserClient").authenticated()
                         .requestMatchers("/api/admin/roles/getRoleByName").authenticated()
                         .requestMatchers("/api/client/**").hasAnyAuthority("Cliente", "Administrador")
-                        .requestMatchers("/api/kitchener/**").hasAnyAuthority("Cocinero", "Administrador")
                         .requestMatchers("/api/admin/**").hasAuthority("Administrador")
                         .anyRequest().authenticated())
                 .oauth2ResourceServer(oauth2ResourceServer -> oauth2ResourceServer
