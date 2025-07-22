@@ -11,6 +11,7 @@ import com.example.auth0UsersAndRoles.services.PokemonService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
 import java.util.List;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 @RestController
 @RequestMapping("/api/pokemons")
@@ -53,5 +54,18 @@ public class PokemonController {
         String userAuth0Id = jwt.getSubject();
         List<Integer> favorites = pokemonService.getFavoritePokemonsForUser(userAuth0Id);
         return ResponseEntity.ok(favorites);
+    }
+
+    @Operation(summary = "Eliminar pokemon de favoritos", description = "Elimina un pokemon de la lista de favoritos del usuario autenticado")
+    @DeleteMapping("/remove-pokemon-from-favorite/{pokemonId}")
+    public ResponseEntity<String> removePokemonFromFavorite(@PathVariable Integer pokemonId,
+            @AuthenticationPrincipal Jwt jwt) {
+        String userAuth0Id = jwt.getSubject();
+        boolean removed = pokemonService.removePokemonFromFavorite(userAuth0Id, pokemonId);
+        if (removed) {
+            return ResponseEntity.ok("Pokemon eliminado de favoritos");
+        } else {
+            return ResponseEntity.badRequest().body("El pokemon no estaba en favoritos o el usuario no existe");
+        }
     }
 }

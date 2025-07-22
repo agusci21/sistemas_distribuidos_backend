@@ -44,6 +44,21 @@ public class PokemonService {
         return false;
     }
 
+    public boolean removePokemonFromFavorite(String userAuth0Id, Integer pokemonId) {
+        User user = userRepository.getUserByAuth0Id(userAuth0Id);
+        if (user == null)
+            return false;
+        Long userId = user.getId();
+        List<UserFavoritePokemon> favorites = userFavoritePokemonRepository.findByUserId(userId);
+        for (UserFavoritePokemon fav : favorites) {
+            if (fav.getPokemonId().equals(pokemonId)) {
+                userFavoritePokemonRepository.delete(fav);
+                return true;
+            }
+        }
+        return false;
+    }
+
     public List<Integer> getFavoritePokemonsForUser(String userAuth0Id) {
         User user = userRepository.getUserByAuth0Id(userAuth0Id);
         if (user == null)
