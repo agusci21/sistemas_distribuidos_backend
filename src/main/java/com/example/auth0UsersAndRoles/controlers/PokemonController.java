@@ -5,13 +5,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 import io.swagger.v3.oas.annotations.Operation;
 import com.example.auth0UsersAndRoles.services.PokemonService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/pokemons")
@@ -40,15 +39,19 @@ public class PokemonController {
     public ResponseEntity<String> addPokemonAsFavorite(@PathVariable Integer pokemonId,
             @AuthenticationPrincipal Jwt jwt) {
         String userAuth0Id = jwt.getSubject();
-        // Aquí deberías buscar el id interno del usuario en la base de datos usando el
-        // auth0Id
-        // Por ahora, solo mostramos el auth0Id
-        // TODO: Mapear auth0Id a id interno si es necesario
         boolean added = pokemonService.addPokemonAsFavorite(userAuth0Id, pokemonId);
         if (added) {
             return ResponseEntity.ok("Pokemon agregado a favoritos");
         } else {
-            return ResponseEntity.badRequest().body("El pokemon ya está en favoritos");
+            return ResponseEntity.badRequest().body("El pokemon ya está en favoritos o el usuario no existe");
         }
+    }
+
+    @Operation(summary = "Obtener pokemons favoritos", description = "Devuelve la lista de IDs de pokemons favoritos del usuario autenticado")
+    @GetMapping("/favorites")
+    public ResponseEntity<List<Integer>> getFavoritePokemons(@AuthenticationPrincipal Jwt jwt) {
+        String userAuth0Id = jwt.getSubject();
+        List<Integer> favorites = pokemonService.getFavoritePokemonsForUser(userAuth0Id);
+        return ResponseEntity.ok(favorites);
     }
 }
