@@ -85,6 +85,33 @@ public class AdminUserController {
         }
     }
 
+    @PostMapping("/createUserFromAuth0")
+    public ResponseEntity<?> createUserFromAuth0(@RequestBody UserDTO userDTO) {
+        try {
+            // No creamos el usuario en Auth0, porque ya existe.
+            // Solo lo guardamos en nuestra BBDD.
+
+            // Buscamos los roles en nuestra BBDD por su auth0_role_id
+            Set<Roles> rolesAsignados = userDTO.getRoles().stream()
+                    .map(idRol -> roleRepository.findByAuth0RoleId(idRol)
+                            .orElseThrow(() -> new RuntimeException("Rol no encontrado: " + idRol)))
+                    .collect(Collectors.toSet());
+
+            User userBBDD = User.builder()
+                    .auth0Id(userDTO.getAuth0Id())
+                    .name(userDTO.getName())
+                    .roles(rolesAsignados)
+                    .nickName(userDTO.getNickName())
+                    .userEmail(userDTO.getEmail())
+                    .build();
+
+            return ResponseEntity.ok(userBBDDService.save(userBBDD));
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError()
+                    .body("Error al crear el usuario desde Auth0: " + e.getMessage());
+        }
+    }
+
     @PostMapping("/createUserClient")
     public ResponseEntity<?> createUserClient(@RequestBody UserDTO userDTO) {
         try {

@@ -1,13 +1,13 @@
 package com.example.auth0UsersAndRoles.entities.dto;
 
-import com.example.auth0UsersAndRoles.entities.Character;
+import com.example.auth0UsersAndRoles.entities.StarWarsCharacter;
 import java.util.List;
 
 public class SwapiPeopleResponse {
     private int count;
     private String next;
     private String previous;
-    private List<Character> results;
+    private List<StarWarsCharacter> results;
 
     public int getCount() {
         return count;
@@ -33,11 +33,11 @@ public class SwapiPeopleResponse {
         this.previous = previous;
     }
 
-    public List<Character> getResults() {
+    public List<StarWarsCharacter> getResults() {
         return results;
     }
 
-    public void setResults(List<Character> results) {
+    public void setResults(List<StarWarsCharacter> results) {
         this.results = results;
     }
 }

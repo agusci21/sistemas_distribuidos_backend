@@ -47,6 +47,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/api/public").permitAll()
                         .requestMatchers("/api/public/**").permitAll()
+                        .requestMatchers("/api/admin/users/createUserFromAuth0").permitAll()
                         .requestMatchers("/api/admin/users/getUserById").authenticated()
                         .requestMatchers("/api/admin/users/createUserClient").authenticated()
                         .requestMatchers("/api/admin/roles/getRoleByName").authenticated()

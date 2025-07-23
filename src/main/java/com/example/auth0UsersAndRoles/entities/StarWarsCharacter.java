@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @Entity
 @Data
-public class Character {
+public class StarWarsCharacter {
     @Id
     private UUID id;
 
