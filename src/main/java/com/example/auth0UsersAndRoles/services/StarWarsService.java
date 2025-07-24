@@ -1,5 +1,6 @@
 package com.example.auth0UsersAndRoles.services;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -12,6 +13,7 @@ public class StarWarsService {
         this.restTemplate = restTemplate;
     }
 
+    @Cacheable("characters")
     public String getCharacters() {
         String url = "http://localhost:3000/personajes";
         return restTemplate.getForObject(url, String.class);
