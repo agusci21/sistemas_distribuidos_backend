@@ -51,6 +51,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/api/admin/users/getUserById").authenticated()
                         .requestMatchers("/api/admin/users/createUserClient").authenticated()
                         .requestMatchers("/api/admin/roles/getRoleByName").authenticated()
+                        .requestMatchers("/api/starwars/**").hasAuthority("premium_tier")
                         .requestMatchers("/api/client/**").hasAnyAuthority("Cliente", "Administrador")
                         .requestMatchers("/api/admin/**").hasAuthority("Administrador")
                         .anyRequest().authenticated())

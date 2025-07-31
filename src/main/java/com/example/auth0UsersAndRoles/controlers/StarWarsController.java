@@ -20,7 +20,6 @@ public class StarWarsController {
 
     @Operation(summary = "Get all star wars characters", description = "Fetches characters from http://localhost:3000/personajes")
     @GetMapping("/personajes")
-    @PreAuthorize("hasAuthority('premium')")
     public ResponseEntity<String> getCharacters() {
         try {
             String response = starWarsService.getCharacters();
